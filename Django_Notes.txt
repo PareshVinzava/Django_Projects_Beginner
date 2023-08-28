@@ -1,0 +1,343 @@
+
+
+
+# First i have  to install django by using python3 -m pip install Django
+
+# once Django is intalled check it by typing django-admin
+
+when we runserver dummy database sqllite is being created
+
+
+
+then for starting out creating  app 
+write below command 
+
+python manage.py startapp appname
+
+
+in our created app file named app.py have nam e="something"  we will change it later
+
+
+
+
+
+
+
+ ############ Views and Urls ###############
+
+
+
+
+try make dynamic views and urls
+
+make function for nothing page
+
+use reverse function import it from the django.urls 
+
+reverse function help us to create urls for use dynamically without hard coding them, we identify them by name which we assign in urls
+and after it we can use it for redirecting or returning html etc.
+
+instead of plain text return httpsresponse as HTML
+
+
+
+
+
+
+###### Template and static files ##########
+
+in last section we have used html but as a string into the views python code it's works but not a good way 
+
+what we can do is that we can create Templates for creating Dynamic HTML files.
+
+Let's see the Templates
+
+Html files is template  which can output dynamic html code
+
+So instead of writing html into views write it into the different html Templates
+
+But the question is where to create template 
+
+in our app folder for example i have app named challenges in that create SUB folder named templates and in that templates folder again create sub folder which will have same name as app name example challenges.
+
+--> app folder --> sub folder (templates) --> sub folder (same as app folder name)        
+
+________>> it is convention 
+
+now in that last created folder we can create html files 
+
+and when we try to return that html template it won't bcz for usinf it first we have to tell the django that we have template and want to use it 
+
+
+for that in project folder settings.py file we have  TEMPLATES = []  settings in that we can write onto DIRS : [ BASE_DIR / appname / templates ]
+
+or we can do one thing is that   in settings file goto INTALLED_APPS = []  and list out our app in that list 
+
+There is this to ways to use our Templates.
+
+
+
+after this we can use and return our Templates
+
+BUT for rendering html file we can use djjango.shortcut (render)  or we can use django.templates.loader import render_to_string both can work
+
+
+Yet it is only a static html and not dynamic now we'll see how to make it dynamic
+
+
+
+
+
+
+
+
+############  Template Language $ Variable Interpolation ############
+
+
+for giving dynamic html files in response django has its own DTL django template language 
+
+it is combination of normal html sytntax + DTL 
+
+              {{}} it is called interpolation syntaxsssss
+
+
+For making our html Temolate dynamic in views where we are rendering html file give third argument dictionary and in that make a kkey vale pair in value what we want to save and that key name will be written into the our Template and into the tag where we want to show that value into the double curlu bracket {{}}
+
+
+never use  inbuild function or brackets in html comments otherwise we can get errors
+
+
+
+## Built in Filters in DTL Template , by using thoes filters we can make changes to variable which we have rendered and taken from the views
+                             
+                            
+ 
+
+                            ##Filters##  syntax--> {{ value|filter }}
+
+some of the examples are as below 
+add
+{{ value| add:2 }} --->  if value is 4 then output will be 6
+
+title 
+{{ value|title }} --->    "my first post" output will be My First Post
+
+There is tons of filter out there and also we can create our own filters look filters fom the documentations
+
+django extention will help into Template it'll make all colourful and help to identify id colour did't chnages
+
+ as we have seen filter we have one more inbuilt feature called Tags which we can use with Templates
+ 
+  
+  
+                                ##Tags##  
+  Syntax --> {% tags %}  
+
+We must have use single curly bracket 
+
+-- some Tags nedded to be closed and some not example for Tag needed to be closed and url Tag don't.
+
+
+Example of --for-- Tag.
+
+<body>
+<ul>
+    {% for month in months %}
+    
+       <li><a href="">{ month|title }</a></li>
+       
+    {% endfor %}  
+
+</ul>
+</body>
+  
+  
+  
+  
+ ------ We have url Tag for the generating Dynamic url path ----------
+ 
+ syntax of url tag 
+ 
+ {% url name of url space variable %} --> output will be like path something/something/
+ 
+ 
+ -------  for using conditions into Templates we have ##if Tag##  ------------
+ 
+                          
+                          #### if Tag ####
+                          
+                          
+--  if tag requires ending.
+
+eg.
+
+    {% if something condition %}
+    
+     do something
+     
+    {% else %}
+    
+       do something 
+       
+    {% endif %}
+    
+    
+    
+    ##################   Template inheritance   ###############
+    
+    
+    -> django gives us ability to inherit the Templates also 
+    
+    for performing this we have to use ## block ## Tag 
+    block Tag requires ending. 
+    
+    
+ it is good to create one base Teamplate folder at the directory where our project folder is placed 
+ 
+ and in that Template folder create base.html file before going furtur let django know that it has to consider that folder also for that into settings.py into Templates setting into 'DIRS' write the  BASE_DIR / "Template" 
+ 
+ then django will consider that folder into the project.
+ 
+ 
+ after that in that base.html file where ever i want to inherit simply write the block Tag and give name to it 
+ 
+ after that go into other html files from where we want to inherit and at the top of the file write extend Tag 
+ 
+ eg. { % extends "base.html" %}
+ 
+ and now that html file is ready to inhehrit from 
+ 
+ whatever we want to inherit write befor starting and ending of it the blcok Tag with name at which we want to inherit that perticular thing
+ 
+ 
+ 
+ 
+ 
+          ######## HTMl Snippet  #############
+   soemtime we don't want to inherit a template but some little html snippet which we can use anywhere 
+   
+   for this create folder in that create html file then 
+   
+   use Tag Named ----- incule ---------   
+   
+   also in include function we can use Variables 
+   
+   
+   
+###############     More on the Django Template Language (DTL)   ######### 
+   
+   --->  Accessing Dictionary Fields in Templates <-----------
+   
+   
+  When accessing dictionary data in a template, you DON'T use this syntax:
+
+{{ myDictionary['some_key'] }}
+
+Instead, you use the dot notation - as if it were a regular Python object:
+
+{{ myDictionary.some_key }}
+
+
+
+
+------------->     Calling Functions in Templates    <------------
+
+alling functions in templates also works differently than it does in Python.
+
+Instead of calling it, you use functions like regular variables or properties.
+
+I.e., instead of:
+
+{{ result_from_a_function() }}
+
+you would use
+
+{{ result_from_a_function }}
+
+
+
+################ Instead of using render to string or HttpsResponseNotfoound we can use http404 ############
+
+#########################  404 Template  ##########################
+
+In a project directory and in Template Folder create Template named 404..html folder and write what you want to show there on invaild response 
+
+Template name should be 404.html and have to use extend("base.html")
+
+
+so sor using 404.html we have to import http404 from django.http
+
+so it'll automatically render 404.html page and will not have use render to string 
+
+NOTE :- Whenever we have to use 404.html page remerber that we have to use that with raise.
+
+
+
+############  CSS Static fiiles ################
+
+
+for using css like static files create new folder into app named static and sub folder name same as app name as challenges  and in that sub-folder create css file 
+
+
+not goto setting file and check that into installed_apps 'dango.contrib.staticfies'  is must be there
+
+
+for using css we have to use load tag into html file where we cant to use then we have to specify 
+
+<link rel="stlesheet" href="{% static path %}"  then we have to wrape using block tag and add to base.html head place and done restart server and see changes.
+
+Here what we have done is linked static file with the perticular app but 
+
+Now we'll see how to add Global one static file
+
+
+
+for That we have to create static folder next to our global Template folder at place where manage.py is placed.
+
+
+same as we did with the global base.html file.
+
+so we can use that css file for the any app we have created 
+
+
+on application level django by default look for static files 
+But it's not the same case for the global static file django not by default look for an  static file at global level.
+
+IMPOTANT NOTE :----> so for knowing it to Django we have to ----create new settings ----- into settings.py file.
+
+goto settings.py create STATICFILES_DIRS = []  it'll be similar BASE_DIR = [] setting.
+
+in that  STATICFILES_DIRS = [  BASE_DIR / "static" ] in this setting i can add name of the global satic file.
+
+
+
+#######################################################################################################################################################
+
+Building Static URLs Dynamically
+Later in the course, we'll see an example for a static URL, that is built dynamically.
+
+What do I mean with that?
+
+Imagine, that you want to build a static URL where some part of the URL (e.g. the filename) is actually stored in a variable that's exposed to the template.
+
+So you might want to build the URL like this:
+
+{% static "my_path/to/" + the_file %}
+
+Here, "the_file" would be a variable holding the actual filename.
+
+The above code would fail.
+
+Instead, you can use the "add" filter provided by Django to construct this path dynamically:
+
+{% static "my_path/to/"|add:the_file %}
+
+Again, you'll also see this in action later in the course! 
+
+
+############################################################################################################################################################################################
+
+
+<slug> slug means where  we creates dynamic urls.   It is identifier  
+
+

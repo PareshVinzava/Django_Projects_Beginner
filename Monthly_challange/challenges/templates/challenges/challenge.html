@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_file %} 
+
+         <link rel="stylesheet" href="{% static "challenges/challenge.css" %}"> <!-- This is for linking our css file we have to tuse link and rel for relation and href for destination -->
+         <link rel="stylesheet" href="{% static "challenges/include/header.css" %}">
+         <link rel="stylesheet" href="{% static "challenges/include/challenge.css" %}">
+
+{% endblock  %}
+
+
+
+{% block page_title %} Challenge {% endblock  %} 
+
+
+{% block content %}
+
+{% include "challenges/include/header.html"  %} <!-- Here with incule also i can use Variables  -->
+
+    <h1>{{ month_name|title }} Month Challenges</h1>  <!-- Here i have used filter which is special feature of django -->  
+
+    {% if text is not None %}
+              <h2>{{ text }}</h2>  <!--  here i have created this html tag dynamic so it'll change according to the request of the user and syntax for this is double curly bracket  -->
+    {% else %}
+              <p class = "fallback">There is no challenges for this month yet</h1>
+
+
+    {% endif %}
+
+{% endblock  %}

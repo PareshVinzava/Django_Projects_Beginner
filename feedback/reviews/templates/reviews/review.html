@@ -1,0 +1,20 @@
+{% extends 'reviews/base.html' %}
+
+
+
+   {% block title %} Your Reviews {% endblock  %}
+
+{% block content %}
+      <form action="/" method="POST">
+        {% csrf_token %}
+            {% for field in form %}
+      <div class="form-control {% if field.errors %}errors{% endif %}">  <!--  Here i have used if tag ehich creates new class which will be used for styling if get any errors into form field-->
+        {{field.label_tag}}    <!--  Here i have arrages and ordered the forms as i wanted-->
+        {{ field }}
+        {{ form.errors }}
+      </div>
+            {% endfor %}
+        <button type="submit" value="Submit">SEND</button>
+      </form>
+    
+      {% endblock  %}

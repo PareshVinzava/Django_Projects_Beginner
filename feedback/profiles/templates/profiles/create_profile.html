@@ -1,0 +1,18 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a Profile</title>
+  <link rel="stylesheet" href="{% static "profiles/styles.css" %}">
+</head>
+<body>
+  <form action="/profiles/" method="POST" enctype="multipart/form-data">  <!-- This Thing is very important we have to write this enc... bcz we are telling browser that it is post request and file type so behave according to it. and into action attribute we mentioned that this post request should be sent to the /profiles urls -->
+      {% csrf_token %}
+    {{ form }}
+    <button>Upload!</button>
+  </form>
+</body>
+</html>

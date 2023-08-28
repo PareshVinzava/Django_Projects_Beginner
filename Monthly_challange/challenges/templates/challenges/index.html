@@ -1,0 +1,23 @@
+{% extends 'base.html' %}  <!-- We have inherited From main base Template -->
+{% load static %}  <!-- It is used fro using Static files into our Templates It allow us to use static  files-->
+
+{% block page_title %} Challenge {% endblock  %} 
+
+{% block css_file %} 
+
+         <link rel="stylesheet" href="{% static "challenges/challenges.css" %}"> <!-- This is for linking our css file we have to tuse link and rel for relation and href for destination -->
+         <link rel="stylesheet" href="{% static "challenges/include/header.css" %}">
+
+{% endblock  %}
+<!-- But before using it we have to wrape it using block tag bcz link should be inside of the head of html file. -->
+
+
+{% block content %}
+{% include "challenges/include/header.html"  %}
+    <ul>
+        {% for month in months %}  <!-- here i have used Tags  -->
+        <li><a href= {% url "month-challenges" month %}> {{month|title}} </a></li> <!-- But what about Dynamic ancer tag path url path for creating that in vews we had an reverse function but we can use that here here in Template in DTL we have one Tag called url which works same as rverse function and using it we will be able to create Dynamic url inside a Template.. -->
+                     <!-- Here i have used url tag using this i can create dynamic url... path. first. give it. a name of the url. then by space give what you want into url, path ex. challenge,/month,/ -->
+        {% endfor %}
+    </ul>
+{% endblock  %}
